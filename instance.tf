@@ -64,6 +64,7 @@ data "aws_ami" "my_ami" {
 resource "aws_instance" "instance1" {
   ami                    = data.aws_ami.my_ami.id
   instance_type          = var.instance_type
+  subnet_id              = aws_subnet.public_subnet.id         
   vpc_security_group_ids = [aws_security_group.tf_secure.id]
   key_name               = "parisIAM"
 
