@@ -6,15 +6,13 @@ resource "aws_vpc" "my_tf_vpc" {
   cidr_block = "10.0.0.0/20"
   tags = {
     Name = "my_tf_vpc"
-    }
+  }
 }
 
 resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.my_tf_vpc.id
   cidr_block        = "10.0.1.0/24" 
   availability_zone = "eu-west-3a"
-  map_public_ip_on_launch = true
-
   tags = {
     Name = "public_subnet"
   }
@@ -22,30 +20,30 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_security_group" "tf_secure" {
   name        = "tf_secure"
-  description = "Allow SSH for all network"
+  description = "Allow SSH and HTTP for all network"
   vpc_id      = aws_vpc.my_tf_vpc.id
 
   ingress {
-    description      = "SSH rule"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    description  = "SSH rule"
+    from_port    = 22
+    to_port      = 22
+    protocol     = "tcp"
+    cidr_blocks  = ["0.0.0.0/0"]
   }
 
   ingress {
-    description     = "HTTP Rule"
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"] 
+    description  = "HTTP Rule"
+    from_port    = 80
+    to_port      = 80
+    protocol     = "tcp"
+    cidr_blocks  = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -63,27 +61,18 @@ data "aws_ami" "my_ami" {
   }
 }
 
-
 resource "aws_instance" "instance1" {
   ami                    = data.aws_ami.my_ami.id
   instance_type          = var.instance_type
-  subnet_id              = aws_subnet.public_subnet.id         
+  subnet_id              = aws_subnet.public_subnet.id # Explicitly associate the instance with the subnet
   vpc_security_group_ids = [aws_security_group.tf_secure.id]
   key_name               = "parisIAM"
-  associate_public_ip_address = true
-
 
   tags = {
-    Name = "allow_tls"
+    Name = "tf_test_instance"
     Env  = "Dev"
   }
 }
-
-resource "aws_eip" "elastic_ip" {
-  instance = aws_instance.instance1.id
-  vpc      = true
-}
-
 
 variable "instance_type" {
   type    = string
@@ -91,13 +80,9 @@ variable "instance_type" {
 }
 
 output "hello_world" {
-  value = "hello world" # Correct spelling
+  value = "hello world"
 }
 
 output "public_ip" {
   value = aws_instance.instance1.public_ip
-}
-
-output "elastic_ip" {
-  value = aws_eip.elastic_ip.public_ip
 }
