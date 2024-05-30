@@ -76,7 +76,7 @@ resource "aws_instance" "instance1" {
 
 resource "aws_eip" "elastic_ip" {
   instance = aws_instance.instance1.id
-  vpc      = true
+  domain   = "vpc" // Use 'domain' instead of 'vpc' to specify VPC domain
 }
 
 variable "instance_type" {
@@ -85,13 +85,16 @@ variable "instance_type" {
 }
 
 output "hello_world" {
-  value = "hello world" # Correct spelling
+  value       = "hello world"
+  description = "A simple output to test Terraform configuration"
 }
 
 output "public_ip" {
-  value = aws_instance.instance1.public_ip
+  value       = aws_instance.instance1.public_ip
+  description = "Public IP address of the created instance"
 }
 
 output "elastic_ip" {
-  value = aws_eip.elastic_ip.public_ip
+  value       = aws_eip.elastic_ip.public_ip
+  description = "Elastic IP address associated with the instance"
 }
