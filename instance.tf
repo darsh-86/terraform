@@ -66,16 +66,13 @@ resource "aws_instance" "instance1" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id 
   vpc_security_group_ids = [aws_security_group.tf_secure.id]
+  associate_public_ip_address = true // Assign default public IP
   key_name               = "parisIAM"
 
   tags = {
     Name = "tf_test_instance"
     Env  = "Dev"
   }
-}
-
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.my_tf_vpc.id
 }
 
 resource "aws_eip" "elastic_ip" {
