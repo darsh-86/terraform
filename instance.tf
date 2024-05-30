@@ -80,6 +80,10 @@ resource "aws_eip" "elastic_ip" {
   domain   = "vpc"
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.my_tf_vpc.id
+}
+
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.my_tf_vpc.id
 
