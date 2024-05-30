@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_vpc" "my_tf_vpc" {
   cidr_block = "10.0.0.0/20"
   tags = {
-    Name = "tf_test_vpc"
+    Name = "my_tf_vpc"
     }
 }
 
@@ -22,6 +22,7 @@ resource "aws_security_group" "tf_secure" {
   name        = "tf_secure"
   description = "Allow SSH for all network"
   vpc_id      = aws_vpc.my_tf_vpc.id
+  subnet_id   = aws_subent.public_subnet.id
 
   ingress {
     description      = "SSH rule"
