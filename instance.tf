@@ -1,6 +1,7 @@
 provider "aws" {
   region = "eu-west-3"
 }
+
 resource "aws_vpc" "my_tf_vpc" {
   cidr_block = "10.0.0.0/20"
   tags = {
@@ -8,18 +9,19 @@ resource "aws_vpc" "my_tf_vpc" {
     }
 }
 
-resource "aws_subnet" "public_subnet"{
-  vpc_id = my_tf_vpc.id
-  cidr_block = "10.0.1.0/24 
+resource "aws_subnet" "public_subnet" {
+  vpc_id            = aws_vpc.my_tf_vpc.id
+  cidr_block        = "10.0.1.0/24" 
   availability_zone = "eu-west-3a"
   tags = {
     Name = "public_subnet"
   }
 }
+
 resource "aws_security_group" "tf_secure" {
   name        = "tf_secure"
   description = "Allow SSH for all network"
-  vpc_id      = "my_tf_vpc.id" 
+  vpc_id      = aws_vpc.my_tf_vpc.id
 
   ingress {
     description      = "SSH rule"
@@ -34,7 +36,7 @@ resource "aws_security_group" "tf_secure" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    cidr_block      = ["0.0.0.0/0"] 
+    cidr_blocks      = ["0.0.0.0/0"] 
   }
 
   egress {
@@ -62,7 +64,7 @@ data "aws_ami" "my_ami" {
 resource "aws_instance" "instance1" {
   ami                    = data.aws_ami.my_ami.id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.allow_tls.id]
+  vpc_security_group_ids = [aws_security_group.tf_secure.id]
   key_name               = "parisIAM"
 
   tags = {
@@ -76,7 +78,7 @@ variable "instance_type" {
   default = "t4g.micro" # Changed to an arm64 compatible instance type
 }
 
-output "hellow" {
+output "hello_world" {
   value = "hello world" # Correct spelling
 }
 
