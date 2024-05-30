@@ -86,3 +86,6 @@ output "hello_world" {
 output "public_ip" {
   value = aws_instance.instance1.public_ip
 }
+output "elastic_ip" {
+  value = aws_eip.elastic_ip.public_ip
+}
