@@ -13,6 +13,8 @@ resource "aws_subnet" "public_subnet" {
   vpc_id            = aws_vpc.my_tf_vpc.id
   cidr_block        = "10.0.1.0/24" 
   availability_zone = "eu-west-3a"
+  map_public_ip_on_launch = true
+
   tags = {
     Name = "public_subnet"
   }
@@ -61,18 +63,27 @@ data "aws_ami" "my_ami" {
   }
 }
 
+
 resource "aws_instance" "instance1" {
   ami                    = data.aws_ami.my_ami.id
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id         
   vpc_security_group_ids = [aws_security_group.tf_secure.id]
   key_name               = "parisIAM"
+  associate_public_ip_address = true
+
 
   tags = {
     Name = "allow_tls"
     Env  = "Dev"
   }
 }
+
+resource "aws_eip" "elastic_ip" {
+  instance = aws_instance.instance1.id
+  vpc      = true
+}
+
 
 variable "instance_type" {
   type    = string
@@ -85,4 +96,8 @@ output "hello_world" {
 
 output "public_ip" {
   value = aws_instance.instance1.public_ip
+}
+
+output "elastic_ip" {
+  value = aws_eip.elastic_ip.public_ip
 }
