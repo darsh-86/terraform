@@ -74,14 +74,32 @@ resource "aws_instance" "instance1" {
   }
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.my_tf_vpc.id
+}
+
 resource "aws_eip" "elastic_ip" {
   instance = aws_instance.instance1.id
-  domain   = "vpc" // Use 'domain' instead of 'vpc' to specify VPC domain
+  domain   = "vpc"
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.my_tf_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.public_subnet.id
+  route_table_id = aws_route_table.public.id
 }
 
 variable "instance_type" {
   type    = string
-  default = "t4g.micro" # Changed to an arm64 compatible instance type
+  default = "t4g.micro"
 }
 
 output "hello_world" {
