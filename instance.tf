@@ -1,11 +1,25 @@
 provider "aws" {
   region = "eu-west-3"
 }
+resource "aws_vpc" "my_tf_vpc" {
+  cidr_block = "10.0.0.0/20"
+  tags = {
+    Name = "tf_test_vpc"
+    }
+}
 
-resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
+resource "aws_subnet" "public_subnet"{
+  vpc_id = my_tf_vpc.id
+  cidr_block = "10.0.1.0/24 
+  availability_zone = "eu-west-3a"
+  tags = {
+    Name = "public_subnet"
+  }
+}
+resource "aws_security_group" "tf_secure" {
+  name        = "tf_secure"
   description = "Allow SSH for all network"
-  vpc_id      = "vpc-08474fafa7952b5f9" # VPC ID should be a string
+  vpc_id      = "my_tf_vpc.id" 
 
   ingress {
     description      = "SSH rule"
@@ -13,6 +27,14 @@ resource "aws_security_group" "allow_tls" {
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description     = "HTTP Rule"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    cidr_block      = ["0.0.0.0/0"] 
   }
 
   egress {
@@ -23,8 +45,7 @@ resource "aws_security_group" "allow_tls" {
   }
 
   tags = {
-    Name = "allow_tls"
-    Env  = "Dev"
+    Name = "tf_secure"
   }
 }
 
