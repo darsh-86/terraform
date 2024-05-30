@@ -74,18 +74,24 @@ resource "aws_instance" "instance1" {
   }
 }
 
+resource "aws_eip" "elastic_ip" {
+  instance = aws_instance.instance1.id
+  vpc      = true
+}
+
 variable "instance_type" {
   type    = string
   default = "t4g.micro" # Changed to an arm64 compatible instance type
 }
 
 output "hello_world" {
-  value = "hello world"
+  value = "hello world" # Correct spelling
 }
 
 output "public_ip" {
   value = aws_instance.instance1.public_ip
 }
+
 output "elastic_ip" {
   value = aws_eip.elastic_ip.public_ip
 }
