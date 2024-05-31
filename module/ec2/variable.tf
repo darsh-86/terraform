@@ -28,4 +28,3 @@ variable "this_aws_instance_tags" {
 variable "this_sg_vpc_id" {
     type = string
 }
-variable ""
