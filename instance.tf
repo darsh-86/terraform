@@ -1,4 +1,4 @@
-provider "aws" {
+/*provider "aws" {
   region = "eu-west-3"
 }
 
@@ -116,4 +116,4 @@ output "public_ip" {
 output "elastic_ip" {
   value       = aws_eip.elastic_ip.public_ip
   description = "Elastic IP address associated with the instance"
-}
+}*/
