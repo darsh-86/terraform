@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-3"
 }
 
 module "vpc" {
@@ -19,7 +19,6 @@ module "vpc" {
     this_def_Route_example_tag = "default" 
 } 
 
-/*
 module "ec2" {
     source = "./module/ec2"
     this_aws_instance_ami = "ami-0eb5115914ccc4bc2"
@@ -35,4 +34,3 @@ module "ec2" {
     this_sg_vpc_id = module.vpc.vpc_id
     //this_aws_vpc_id = module.aws_vpc.aws_vpc_id
 }
-*/

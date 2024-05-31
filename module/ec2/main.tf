@@ -2,15 +2,13 @@ resource "aws_instance" "this_aws_instance" {
   ami                    = var.this_aws_instance_ami
   instance_type          = var.this_aws_instance_instance_type
   key_name               = var.this_aws_instance_key_name
-  vpc_security_group_ids =  [aws_security_group.this_sg.id]
-//[var.this_aws_instance_sg_id]
+  vpc_security_group_ids =  [aws_security_group.this_sg.id]  //[var.this_aws_instance_sg_id]
   availability_zone      = var.this_aws_instance_availability_zone
   subnet_id = var.this_aws_instance_subnet 
   root_block_device {
     volume_size = var.this_aws_instance_volume_size
   }
-  count = var.this_aws_instance_count
-  //user_data_base64 = var.this_aws_instance_user_data_base64
+  count = var.this_aws_instance_count  //user_data_base64 = var.this_aws_instance_user_data_base64
     user_data = <<-EOF
             #!/bin/bash
     sudo -i
