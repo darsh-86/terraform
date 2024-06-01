@@ -61,7 +61,7 @@ resource "aws_security_group" "this_sg" {
 
 module "ec2" {
     source = "./module/ec2"
-    this_aws_instance_ami = "ami-0eb5115914ccc4bc2"
+    this_aws_instance_ami = "ami-0b66d4401b55f98c4"
     this_aws_instance_instance_type = "t2.micro"
     this_aws_instance_key_name = "parisIAM"
     this_aws_instance_availability_zone = "eu-west-3b"
