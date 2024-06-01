@@ -31,6 +31,6 @@ variable "this_sg_vpc_id" {
 variable "this_aws_instance_user_data_base64" {
     type = string
 }
-variable "aws_security_group.this_sg" {
+variable "this_sg" {
     type = string
 }
