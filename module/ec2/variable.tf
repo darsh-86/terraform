@@ -29,8 +29,5 @@ variable "this_sg_vpc_id" {
     type = string
 }
 variable "this_aws_instance_user_data_base64" {
-    type = string
-}
-variable "this_sg" {
-    type = string
+    type = bool
 }
