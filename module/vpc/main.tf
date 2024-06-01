@@ -59,11 +59,3 @@ resource "aws_route_table_association" "this_rw_association" {
   subnet_id      = aws_subnet.this_subnet_pub.id
   route_table_id = aws_route_table.this_route_table.id
 }
-
-output "vpc_id" {
-  value = aws_vpc.this_vpc.id
-}
-
-output "subnet_id" {
-  value = aws_subnet.this_subnet_pub.id
-}
