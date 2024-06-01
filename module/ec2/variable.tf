@@ -28,6 +28,6 @@ variable "this_aws_instance_tags" {
 variable "this_sg_vpc_id" {
     type = string
 }
-variable "this_aws_instance_user_data_base6" {
+variable "this_aws_instance_user_data_base64" {
     type = string
 }
