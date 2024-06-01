@@ -23,8 +23,11 @@ variable "this_aws_instance_count" {
     type = number
 }
 variable "this_aws_instance_tags" {
-    type = map(string)
+    type = string
 }
 variable "this_sg_vpc_id" {
+    type = string
+}
+variable "this_aws_instance_user_data_base6" {
     type = string
 }
