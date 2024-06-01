@@ -69,7 +69,7 @@ module "ec2" {
     this_aws_instance_count = 2
     this_aws_instance_user_data_base64 = true
     this_aws_instance_tags = "Terraform_instance"
-    this_aws_instance_subnet = module.vpc.this_subnet_pub.id
+    this_aws_instance_subnet = module.vpc.subnet_id
     this_sg_vpc_id = module.vpc.vpc_id
     this_aws_instance_sg_id = aws_security_group.this_sg.id
 }
