@@ -77,7 +77,6 @@ Before you begin, ensure you have the following installed:
 ```plaintext
 .
 ├── main.tf                  # Main Terraform configuration
-├── variables.tf             # Variable definitions
 ├── output.tf                # Outputs definitions
 ├── module
 │   ├── vpc
@@ -90,38 +89,91 @@ Before you begin, ensure you have the following installed:
 │       ├── output.tf        # EC2 module outputs (if any)
 └── README.md                # This file
 
-|*Important Variables*|
+## Important Variables
 
-*VPC Module*
+```hcl
+variable "this_vpc_cidr_block" {
+  type = string
+}
 
-|this_vpc_cidr_block: CIDR block for the VPC.|
-|this_vpc_tags: Tags for the VPC.|
-|this_subnet_pub_cidr_block: CIDR block for the public subnet.|
-|this_subnet_pub_map_ip: Flag to map public IP on launch.|
-|this_subnet_pub_tags: Tags for the public subnet.|
-|this_subnet_private1_cidr_block: CIDR block for the first private subnet.|
-|this_subnet_private_map_ip: Flag to map public IP on launch for private subnets.|T
-|this_subnet_private1_tags: Tags for the first private subnet.|
-|this_subnet_private2_cidr_block: CIDR block for the second private subnet.|
-|this_subnet_private2_tags: Tags for the second private subnet.|
-|this_igw_tags: Tags for the Internet Gateway.|
-|this_def_Route_example_cidr_block: CIDR block for the default route.
-|this_def_Route_example_tag: Tags for the default route.|
+variable "this_vpc_tags" {
+  type = string
+}
 
-*EC2 Module*
+variable "this_subnet_pub_cidr_block" {
+  type = string
+}
 
-|this_aws_instance_ami: The AMI to use for the instance.|
-|this_aws_instance_instance_type: The instance type to use.|
-|this_aws_instance_key_name: The key name to use for the instance.|
-|this_aws_instance_sg_id: The security group ID to attach.|
-this_aws_instance_availability_zone: The availability zone to launch the instance in.|
-|this_aws_instance_subnet: The subnet ID to launch the instance in.|
-|this_aws_instance_volume_size: The root volume size.|
-|this_aws_instance_count: Number of instances to launch.|
-|this_aws_instance_tags: Tags for the instance.|
+variable "this_subnet_pub_map_ip" {
+  type = bool
+}
 
-*Outputs*
+variable "this_subnet_pub_tags" {
+  type = string
+}
 
-VPC Module
-vpc_id: The ID of the created VPC.
-subnet_id: The ID of the created public subnet.
+variable "this_subnet_private1_cidr_block" {
+  type = string
+}
+
+variable "this_subnet_private_map_ip" {
+  type = bool
+}
+
+variable "this_subnet_private1_tags" {
+  type = string
+}
+
+variable "this_subnet_private2_cidr_block" {
+  type = string
+}
+
+variable "this_subnet_private2_tags" {
+  type = string
+}
+
+variable "this_igw_tags" {
+  type = string
+}
+
+variable "this_def_Route_example_cidr_block" {
+  type = string
+}
+
+variable "this_def_Route_example_tag" {
+  type = string
+}
+
+# Important Variables
+
+## VPC Module
+- this_vpc_cidr_block: CIDR block for the VPC.
+- this_vpc_tags: Tags for the VPC.
+- this_subnet_pub_cidr_block: CIDR block for the public subnet.
+- this_subnet_pub_map_ip: Flag to map public IP on launch.
+- this_subnet_pub_tags: Tags for the public subnet.
+- this_subnet_private1_cidr_block: CIDR block for the first private subnet.
+- this_subnet_private_map_ip: Flag to map public IP on launch for private subnets.
+- this_subnet_private1_tags: Tags for the first private subnet.
+- this_subnet_private2_cidr_block: CIDR block for the second private subnet.
+- this_subnet_private2_tags: Tags for the second private subnet.
+- this_igw_tags: Tags for the Internet Gateway.
+- this_def_Route_example_cidr_block: CIDR block for the default route.
+- this_def_Route_example_tag: Tags for the default route.
+
+## EC2 Module
+- this_aws_instance_ami: The AMI to use for the instance.
+- this_aws_instance_instance_type: The instance type to use.
+- this_aws_instance_key_name: The key name to use for the instance.
+- this_aws_instance_sg_id: The security group ID to attach.
+- this_aws_instance_availability_zone: The availability zone to launch the instance in.
+- this_aws_instance_subnet: The subnet ID to launch the instance in.
+- this_aws_instance_volume_size: The root volume size.
+- this_aws_instance_count: Number of instances to launch.
+- this_aws_instance_tags: Tags for the instance.
+
+## Outputs
+
+### VPC Module
+- vpc_id: The ID of the created VPC.
+- subnet_id: The ID of the created public subnet.
