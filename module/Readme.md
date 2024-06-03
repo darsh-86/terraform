@@ -91,7 +91,6 @@ Before you begin, ensure you have the following installed:
 
 ## Important Variables
 
-```hcl
 variable "this_vpc_cidr_block" {
   type = string
 }
@@ -177,3 +176,4 @@ variable "this_def_Route_example_tag" {
 ### VPC Module
 - vpc_id: The ID of the created VPC.
 - subnet_id: The ID of the created public subnet.
+```
