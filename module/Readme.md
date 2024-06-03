@@ -88,6 +88,7 @@ Before you begin, ensure you have the following installed:
 │       ├── variables.tf     # EC2 module variables
 │       ├── output.tf        # EC2 module outputs (if any)
 └── README.md                # This file
+```
 
 ## Important Variables
 
@@ -176,4 +177,3 @@ variable "this_def_Route_example_tag" {
 ### VPC Module
 - vpc_id: The ID of the created VPC.
 - subnet_id: The ID of the created public subnet.
-```
