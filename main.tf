@@ -65,8 +65,8 @@ module "key_pair" {
   create            = false
   key_name          = "tf.key_pair"
   create_private_key = true
-  private_key_path  = "./private_key.pem"
-  public_key_path   = "./public_key.pem"
+  private_key_path  = "/home/cloudshell-user/private_key.pem"
+  public_key_path   = "/home/cloudshell-user/public_key.pem"
 }
 
 module "ec2" {
