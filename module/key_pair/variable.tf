@@ -3,11 +3,6 @@ variable "key_name" {
   type        = string
 }
 
-variable "public_key" {
-  type        = string
-  default     = null
-}
-
 variable "create_private_key" {
   type        = bool
   default     = true

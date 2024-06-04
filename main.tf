@@ -60,10 +60,12 @@ resource "aws_security_group" "this_sg" {
 }
 
 module "key_pair" {
-  source            = "./module/key_pair"
-  key_name          = "tf_key_pair"
+  source            = "terraform-aws-modules/key-pair/aws"
+  version           = "2.0.0"
+  create            = false
+  key_name          = "tf.key_pair"
   create_private_key = true
-  private_key_path  = " ./private_key.pem"
+  private_key_path  = "./private_key.pem"
   public_key_path   = "./public_key.pem"
 }
 
