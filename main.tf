@@ -59,6 +59,14 @@ resource "aws_security_group" "this_sg" {
   }
 }
 
+module "key_pair" {
+  source            = "./modules/key_pair"
+  key_name          = "tf_key_pair"
+  create_private_key = true
+  private_key_path  = " ./private_key.pem"
+  public_key_path   = "./public_key.pem"
+}
+
 module "ec2" {
     source = "./module/ec2"
     this_aws_instance_ami = "ami-052984d1804039ba8"
